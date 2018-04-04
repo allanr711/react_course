@@ -1,13 +1,13 @@
 class Person {
-  constructor(name = "Anonymous", age = 0) {
+  constructor(name = 'Anonymous', age = 0) {
     this.name = name;
-    this.age  = age;
+    this.age = age;
   }
   getGreeting() {
-    return `Hi I am ${this.name}.`;
+    return `Hi. I am ${this.name}!`;
   }
   getDescription() {
-    return `${this.name} is ${this.age} years old.`
+    return `${this.name} is ${this.age} year(s) old.`;
   }
 }
 
@@ -16,43 +16,38 @@ class Student extends Person {
     super(name, age);
     this.major = major;
   }
-
   hasMajor() {
     return !!this.major;
   }
   getDescription() {
     let description = super.getDescription();
+
     if (this.hasMajor()) {
-      description += ` Their major is ${this.major}`;
+      description += ` Their major is ${this.major}.`;
     }
+
     return description;
   }
-};
-
+}
 
 class Traveler extends Person {
-  constructor(name, age, major, location) {
-    super(name, location);
-    this.location = location;
-  }
-  hasLocation() {
-    return !!this.location;
+  constructor(name, age, homeLocation) {
+    super(name, age);
+    this.homeLocation = homeLocation;
   }
   getGreeting() {
     let greeting = super.getGreeting();
-    if (this.hasLocation) {
-      greeting += ` I'm visiting from ${this.location}`;
+
+    if (this.homeLocation) {
+      greeting += ` I am visiting from ${this.homeLocation}.`;
     }
+
     return greeting;
   }
-};
+}
 
-const me = new Student('Bruce Wayne', 33, 'Art');
-console.log(me.getDescription());
-
-const other = new Student();
-console.log(other.getDescription());
-
-
-const me = new Traveler('Bruce Wayne', 33, 'Art', 'Gotham');
+const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
 console.log(me.getGreeting());
+
+const other = new Traveler(undefined, undefined, 'Nowhere');
+console.log(other.getGreeting());
