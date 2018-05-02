@@ -7,7 +7,7 @@ class IndecsionApp extends React.Component {
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
-      options: []
+      options: props.options
     };
   }
 
@@ -40,12 +40,11 @@ class IndecsionApp extends React.Component {
   }
 
   render() {
-    const title = "Indecsion";
     const subtitle = "Put you life in the hands of a computer";
 
     return(
       <div>
-        <Header title={title} subtitle={subtitle} />
+        <Header subtitle={subtitle} />
         <Action hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
         <Options 
           options={this.state.options}
@@ -59,13 +58,21 @@ class IndecsionApp extends React.Component {
   }
 }
 
+IndecsionApp.defaultProps = {
+  options: []
+}
+
 const Header = (props) => {
   return (
     <div>
       <h1>{props.title}</h1>
-      <h2>{props.subtitle}</h2>
+      {props.subtitle && <h2>{props.subtitle}</h2>}
     </div>
   );  
+}
+
+Header.defaultProps = {
+  title : 'Some Default'
 }
 
 const Action = (props) => {
@@ -73,7 +80,7 @@ const Action = (props) => {
     <div>
       <button 
         onClick={props.handlePick}
-        disabled={props.hasOptions}
+        disabled={!props.hasOptions}
       >
         What should I do?</button>
     </div>
@@ -130,15 +137,4 @@ class AddOption extends React.Component {
   }  
 }
 
-// Class base "this.props.name"
-// Stateless functinoal component "props.name"
-// const User = (props) => {
-//   return (
-//     <div>
-//       <p>Name: {props.name}</p>
-//       <p>Age: {props.age}</p>
-//     </div>
-//   ); 
-// };
-
-ReactDOM.render(<IndecsionApp />, document.getElementById('app'));
+ReactDOM.render(<IndecsionApp options={['Options one', 'Option two']} />, document.getElementById('app'));
